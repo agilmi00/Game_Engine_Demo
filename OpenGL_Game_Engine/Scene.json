@@ -1,0 +1,260 @@
+{
+    "GameObjects": {
+        "GameObject0": {
+            "Components": {
+                "TagName": "Floor",
+                "TransformComponent": {
+                    "Translation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": -0.0
+                    },
+                    "Rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "Scale": {
+                        "x": 3.0,
+                        "y": 1.0,
+                        "z": 3.0
+                    }
+                },
+                "ModelPath": "/Assets/Modelos/Floor/floor.obj",
+                "DirectionalLightComponent": {
+                    "Color": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "Direction": {
+                        "x": -0.20000000298023224,
+                        "y": -1.0,
+                        "z": -0.30000001192092896
+                    },
+                    "AmbientIntensity": 0.0,
+                    "DiffuseIntensity": 0.0
+                }
+            }
+        },
+        "GameObject1": {
+            "Components": {
+                "TagName": "DirectionalLight",
+                "DirectionalLightComponent": {
+                    "Color": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "Direction": {
+                        "x": -0.20000000298023224,
+                        "y": -1.0,
+                        "z": -0.30000001192092896
+                    },
+                    "AmbientIntensity": 0.0,
+                    "DiffuseIntensity": 0.0
+                }
+            }
+        },
+        "GameObject2": {
+            "Components": {
+                "TagName": "Floor2",
+                "TransformComponent": {
+                    "Translation": {
+                        "x": 5.955728054046631,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "Rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "Scale": {
+                        "x": 3.0,
+                        "y": 1.0,
+                        "z": 3.0
+                    }
+                },
+                "ModelPath": "/Users/Cl0ud7/Documents/XCode Projects/OpenGL_Game_Engine/OpenGL_Game_Engine/Assets/Modelos/Floor/floor.obj"
+            }
+        },
+        "GameObject3": {
+            "Components": {
+                "TagName": "Floor3",
+                "TransformComponent": {
+                    "Translation": {
+                        "x": 11.807790756225586,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "Rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "Scale": {
+                        "x": 2.9000000953674316,
+                        "y": 1.0,
+                        "z": 3.0
+                    }
+                },
+                "ModelPath": "/Assets/Modelos/Floor/floor.obj"
+            }
+        },
+        "GameObject4": {
+            "Components": {
+                "TagName": "Floor4",
+                "TransformComponent": {
+                    "Translation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": -14.512550354003906
+                    },
+                    "Rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "Scale": {
+                        "x": 3.0,
+                        "y": 1.0,
+                        "z": 3.0
+                    }
+                },
+                "ModelPath": "/Assets/Modelos/Floor/floor.obj"
+            }
+        },
+        "GameObject5": {
+            "Components": {
+                "TagName": "Floor5",
+                "TransformComponent": {
+                    "Translation": {
+                        "x": 5.8949809074401855,
+                        "y": 0.0,
+                        "z": -14.523809432983398
+                    },
+                    "Rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "Scale": {
+                        "x": 2.9000000953674316,
+                        "y": 1.0,
+                        "z": 3.0
+                    }
+                },
+                "ModelPath": "/Assets/Modelos/Floor/floor.obj"
+            }
+        },
+        "GameObject6": {
+            "Components": {
+                "TagName": "Floor6",
+                "TransformComponent": {
+                    "Translation": {
+                        "x": 11.718253135681152,
+                        "y": 0.0,
+                        "z": -14.366379737854004
+                    },
+                    "Rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "Scale": {
+                        "x": 3.0,
+                        "y": 1.0,
+                        "z": 3.0
+                    }
+                },
+                "ModelPath": "/Assets/Modelos/Floor/floor.obj"
+            }
+        },
+        "GameObject7": {
+            "Components": {
+                "TagName": "Backpack",
+                "TransformComponent": {
+                    "Translation": {
+                        "x": 5.046392917633057,
+                        "y": 0.8643345832824707,
+                        "z": -30.23303985595703
+                    },
+                    "Rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "Scale": {
+                        "x": 0.4000000059604645,
+                        "y": 0.4000000059604645,
+                        "z": 0.4000000059604645
+                    }
+                },
+                "ModelPath": "/Assets/Modelos/backpack/backpack.obj"
+            }
+        },
+        "GameObject8": {
+            "Components": {
+                "TagName": "PointLight",
+                "TransformComponent": {
+                    "Translation": {
+                        "x": 6.115769386291504,
+                        "y": 3.5037312507629395,
+                        "z": -30.570280075073242
+                    },
+                    "Rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "Scale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    }
+                },
+                "PointLightComponent": {
+                    "Color": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 1.0
+                    },
+                    "DiffuseIntensity": 0.6000000238418579,
+                    "MaxRadius": 12.300000190734863
+                }
+            }
+        },
+        "GameObject9": {
+            "Components": {
+                "TagName": "SpotLight",
+                "TransformComponent": {
+                    "Translation": {
+                        "x": -0.32195210456848145,
+                        "y": 7.758089065551758,
+                        "z": 0.13236665725708008
+                    },
+                    "Rotation": {
+                        "x": -1.4014993906021118,
+                        "y": 1.0821040868759155,
+                        "z": 0.2617993950843811
+                    },
+                    "Scale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    }
+                },
+                "SpotLightComponent": {
+                    "Color": {
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "DiffuseIntensity": 0.20000000298023224,
+                    "MaxRadius": 0.5
+                }
+            }
+        }
+    }
+}
