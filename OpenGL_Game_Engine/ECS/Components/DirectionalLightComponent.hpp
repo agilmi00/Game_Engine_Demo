@@ -16,7 +16,7 @@
 
 struct DirectionalLightComponent : public BaseLight
 {
-    glm::vec3 lightDirection = { -0.2f, -1.0f, -0.3f };
+    mth::Vector3 lightDirection = { -0.2f, -1.0f, -0.3f };
     float ambientIntensity = 0.2f;
    
 };

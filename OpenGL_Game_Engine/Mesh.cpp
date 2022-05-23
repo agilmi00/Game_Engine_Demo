@@ -56,7 +56,7 @@ void Mesh::initBuffers() const
     
 }
 
-void Mesh::render(const uint32_t& shaderProgram, bool& wireFrame)
+void Mesh::render(const uint32_t& shaderProgram,const bool& wireFrame)
 {
     
     // Number of textures per type.

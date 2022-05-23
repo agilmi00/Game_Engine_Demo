@@ -41,7 +41,7 @@ public:
     };
     
     std::vector<Textura> _texturas;
-    void render(const uint32_t& shaderProgram, bool& wireFrame);
+    void render(const uint32_t& shaderProgram,const bool& wireFrame);
 
 private:
     mutable uint32_t VBO;

@@ -19,6 +19,8 @@
 #include "glm/gtc/type_ptr.hpp"
 #include "glm/gtx/matrix_decompose.hpp"
 
+#include "CustomMath.hpp"
+
 
 class Camera {
 
@@ -27,7 +29,7 @@ public:
     ~Camera(){};
     
     glm::vec3 position;
-    static glm::mat4 model(glm::vec3 translation, glm::vec3 rotacion, glm::vec3 Scale);
+    static mth::Matrix4 model(const mth::Vector3& translation,const mth::Quatern& rotacion,const mth::Vector3& Scale);
     glm::mat4 rotationMatrix(glm::vec3 rotation);
     glm::mat4 getView();
     glm::mat4 getProjection();

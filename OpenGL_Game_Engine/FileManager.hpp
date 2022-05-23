@@ -25,6 +25,14 @@
 using json = nlohmann::ordered_json;
 using jsonN = nlohmann::json;
 
+namespace mth
+{
+    void from_json(const json& j, mth::Vector3& vec);
+    void to_json(json& j, mth::Vector3& vec);
+
+    void from_json(const json& j, mth::Quatern& quat);
+    void to_json(json& j, mth::Quatern& quat);
+}
 namespace glm
 {
     void from_json(const json& j, glm::vec3& vec);

@@ -68,8 +68,8 @@ void InputListener::keyboard(float& deltaTime)
     else
     {
         // First person GameCam
-        camFront = glm::vec3(1,0,1);
-        camFront *= _camera->getCameraFront();
+        camFront = glm::normalize(glm::vec3(1,0,1) * _camera->getCameraFront());
+
         if (glfwGetKey(_window, GLFW_KEY_W) == GLFW_PRESS)
             _camera->position += (velocidadCamera * camFront);
         if (glfwGetKey(_window, GLFW_KEY_S) == GLFW_PRESS)

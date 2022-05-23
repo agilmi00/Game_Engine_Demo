@@ -21,6 +21,7 @@
 #include "PointLight.hpp"
 #include "SpotLight.hpp"
 #include "ECSManager.hpp"
+#include "CustomMath.hpp"
 
 
 
@@ -79,10 +80,11 @@ public:
             auto& model = _ECSManager->getComponent<Model>(gameObject);
           
             auto& transform = _ECSManager->getComponent<TransformComponent>(gameObject);
-
-            unsigned int modelLoc = glGetUniformLocation(_shaderProgram, "model");
             
-            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(_camera->model(transform.Translation, transform.Rotation, transform.Scale)));
+            
+            unsigned int modelLoc = glGetUniformLocation(_shaderProgram, "model");
+//            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(_camera->model(transform.Translation, transform.Rotation, transform.Scale)));
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, mth::Mat4Point(_camera->model(transform.Translation, transform.Rotation, transform.Scale)));
             
             bool wireFrame = false;
             model.modelo.draw(_shaderProgram, wireFrame);

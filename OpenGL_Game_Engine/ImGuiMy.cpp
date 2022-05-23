@@ -60,7 +60,7 @@ void ImGuiMy::initDockspace()
 {
     static bool dockspaceOpen = true;
     
-    ImGuiWindowFlags window_flags =  ImGuiWindowFlags_NoDocking;
+    ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDocking;
 
     ImGuiViewport* viewport = ImGui::GetMainViewport();
     ImGui::SetNextWindowPos(viewport->Pos);
@@ -107,27 +107,45 @@ void ImGuiMy::initSceneHierarchy()
 {
     
     ImGui::Begin("Scene hierarchy");
+    ImGui::PushStyleColor(ImGuiCol_Button,  ImVec4{ 0.0f, 0.7f, 0.15f, 1.0f });
     if(ImGui::Button("New GameObject"))
     {
         GameObject gameObject;
         gameObject = _ECSManager->createGameObject();
         _ECSManager->addComponent(gameObject, TagName{.tagName = std::to_string(gameObject)});
         _gameObjects->push_back(gameObject);
+        gameObjectSelected = gameObject;
+        info = _ECSManager->getInfoGameObject(gameObjectSelected);
+        selected = true;
     }
+    ImGui::PopStyleColor(1);
+    ImGui::PushStyleColor(ImGuiCol_Button,  ImVec4{ 0.7f, 0.0f, 0.15f, 1.0f });
     if(ImGui::Button("Delete"))
     {
         _ECSManager->removeGameObject(gameObjectSelected);
 //        _gameObjects->erase(gameObjectSelected);
     }
-    
+    ImGui::PopStyleColor(1);
     for (GameObject gameObject : *_gameObjects)
     {
+        if (gameObject == gameObjectSelected)
+        {
+            ImGui::PushStyleColor(ImGuiCol_Button,  ImVec4{ 0.0f, 0.5f, 0.15f, 1.0f });
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered,  ImVec4{ 0.0f, 0.7f, 0.15f, 1.0f });
+        }
         ImGui::Button(&_ECSManager->getComponent<TagName>(gameObject).tagName[0]);
+        if (gameObject == gameObjectSelected)
+        {
+            ImGui::PopStyleColor(2);
+        }
+        
         if (ImGui::IsItemClicked())
         {
+            
             gameObjectSelected = gameObject;
+            
             info = _ECSManager->getInfoGameObject(gameObjectSelected);
-            std::cout<<gameObjectSelected;
+            firstTime = true;
             selected = true;
         }
     }
@@ -239,9 +257,48 @@ void ImGuiMy::components()
     {
         auto& transform = _ECSManager->getComponent<TransformComponent>(gameObjectSelected);
         vec3Drag("Translation", transform.Translation, 0.0f, 100.0f);
-        glm::vec3 rotation = glm::degrees(transform.Rotation);
+//        glm::vec3 rotation = glm::degrees(transform.Rotation);
+        
+        
+//        if (firstTime)
+//        {
+//            rotation = transform.RotEuler;//glm::degrees(mth::QuatToEuler(transform.Rotation));
+//            firstTime = false;
+//        }
+        rotation = transform.RotEuler;
         vec3Drag("Rotation", rotation, 0.0f, 100.0f);
-        transform.Rotation = glm::radians(rotation);
+        if (rotationChanging)
+        {
+            rotationDelta = transform.RotEuler;
+            transform.RotEuler = rotation;
+            rotationDelta = rotationDelta - transform.RotEuler;
+            rotationDelta = mth::toRadians(rotationDelta);
+            mth::Quatern q1 = mth::EulerToQuat(rotationDelta.x, rotationDelta.y, rotationDelta.z);
+            transform.Rotation = transform.Rotation * q1;
+        }
+//        else if(released == true)
+//        {
+//
+//
+//            released = false;
+//        }
+//        if(released)
+//        {
+//            transform.RotEuler = glm::degrees(mth::QuatToEuler(transform.Rotation));
+//            rotation = glm::degrees(mth::QuatToEuler(transform.Rotation));
+//            released = false;
+//        }
+        
+        
+//        rotation = glm::radians(rotation);
+//
+//        transform.RotEuler = rotation - transform.RotEuler;
+//        mth::Quatern q1 = mth::EulerToQuat(transform.RotEuler.x, transform.RotEuler.y, transform.RotEuler.z);
+////        q1 = q1 - transform.Rotation;
+//        transform.Rotation = q1 * transform.Rotation;
+////        transform.Rotation = glm::radians(rotation);
+//
+            
         vec3Drag("Scale", transform.Scale, 0.0f, 100.0f);
     }
     
@@ -303,7 +360,7 @@ void ImGuiMy::dragFloat(const std::string& label, float& value, float columWidth
     
     
 }
-void ImGuiMy::vec3Drag(const std::string& label, glm::vec3& values, float resetValue, float columWidth)
+void ImGuiMy::vec3Drag(const std::string& label, mth::Vector3& values, float resetValue, float columWidth)
 {
     float minValue = 0.0f;
     float maxValue = 0.0f;
@@ -337,7 +394,7 @@ void ImGuiMy::vec3Drag(const std::string& label, glm::vec3& values, float resetV
         ImGui::Button(buttonLabelX.c_str());
         ImGui::PopStyleColor(1);
         ImGui::SameLine();
-        ImGui::DragFloat("##X", &values.x, stepValue, minValue, maxValue, "%.2f");
+        rotationChanging = ImGui::DragFloat("##X", &values.x, stepValue, minValue, maxValue, "%.2f");
         ImGui::PopItemWidth();
         ImGui::SameLine();
         
@@ -345,7 +402,7 @@ void ImGuiMy::vec3Drag(const std::string& label, glm::vec3& values, float resetV
         ImGui::Button(buttonLabelY.c_str());
         ImGui::PopStyleColor(1);
         ImGui::SameLine();
-        ImGui::DragFloat("##Y", &values.y, stepValue, minValue, maxValue, "%.2f");
+        rotationChanging += ImGui::DragFloat("##Y", &values.y, stepValue, minValue, maxValue, "%.2f");
         ImGui::PopItemWidth();
         ImGui::SameLine();
         
@@ -353,7 +410,7 @@ void ImGuiMy::vec3Drag(const std::string& label, glm::vec3& values, float resetV
         ImGui::Button(buttonLabelZ.c_str());
         ImGui::PopStyleColor(1);
         ImGui::SameLine();
-        ImGui::DragFloat("##Z", &values.z, stepValue, minValue, maxValue, "%.2f");
+        rotationChanging += ImGui::DragFloat("##Z", &values.z, stepValue, minValue, maxValue, "%.2f");
         ImGui::PopItemWidth();
     }
     ImGui::Columns(1);
@@ -367,9 +424,9 @@ void ImGuiMy::initGuizmo()
         auto& transform = _ECSManager->getComponent<TransformComponent>(gameObjectSelected);
 
 //        ImGuizmo::RecomposeMatrixFromComponents(&transform.Translation.x, &transform.Rotation.x, &transform.Scale.x, glm::value_ptr(Transform));
-        glm::mat4 Transform = glm::translate(glm::mat4(1.0f), transform.Translation) * glm::mat4(glm::quat(transform.Rotation)) * glm::scale(glm::mat4(1.0f), transform.Scale);
+        mth::Matrix4 Transform = mth::translate(mth::Matrix4(1.0f), transform.Translation) * mth::RotationM4(transform.Rotation) * mth::scale(mth::Matrix4(1.0f), transform.Scale);
         ImGuizmo::Manipulate(glm::value_ptr(_camera->getView()), glm::value_ptr(_camera->getProjection()),
-                             ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::MODE::WORLD, glm::value_ptr(Transform));
+                             ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::MODE::LOCAL, mth::Mat4Point(Transform));
 //                            nullptr, snap ? snapValues : nullptr);
 
         //Rotation
@@ -386,7 +443,7 @@ void ImGuiMy::initGuizmo()
             glm::vec3 rot;
             glm::vec3 scale;
             
-            ImGuizmo::DecomposeMatrixToComponents(glm::value_ptr(Transform), glm::value_ptr(trans), glm::value_ptr(rot), glm::value_ptr(scale));
+            ImGuizmo::DecomposeMatrixToComponents(mth::Mat4Point(Transform), glm::value_ptr(trans), glm::value_ptr(rot), glm::value_ptr(scale));
             
             transform.Translation = trans;
 //            transform.Rotation = rot;

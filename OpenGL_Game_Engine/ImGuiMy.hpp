@@ -66,13 +66,16 @@ private:
     void initGuizmo();
     void components();
     void dragFloat(const std::string& label, float& value, float columWidth, float dragMaxValue);
-    void vec3Drag(const std::string& label, glm::vec3& values, float resetValue, float columWidth);
+    void vec3Drag(const std::string& label, mth::Vector3& values, float resetValue, float columWidth);
     GameObject gameObjectSelected;
     std::vector<GameObject>* _gameObjects;
     Info info;
     Camera* _camera;
     FileManager* _fileManager;
-    bool selected = false;  
-    
+    bool selected = false;
+    bool rotationChanging = false;
+    bool firstTime = true;
+    mth::Vector3 rotation;
+    mth::Vector3 rotationDelta;
 };
 #endif /* ImGuiMy_hpp */

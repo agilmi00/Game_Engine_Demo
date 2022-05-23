@@ -37,7 +37,7 @@ void Textura::cargar(const std::string &nombre, const std::string &directory, en
         throw std::runtime_error("ERROR: Texture path doesn´t exists -> "+rutaTextura);
     }
     
-    GLenum format;
+    GLenum format = GL_RED;
     if (numCanales == 1)
     format = GL_RED;
     else if (numCanales == 3)

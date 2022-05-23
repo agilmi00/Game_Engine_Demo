@@ -6,18 +6,7 @@
 //
 
 #include "Camera.hpp"
-struct Quaternion
-{
-    float w, x, y, z;
-    
-    Quaternion(const glm::vec3& v, float s)
-    {
-        w = s;
-        x = v.x;
-        y = v.y;
-        z = v.z;
-    }
-};
+
 Camera::Camera(GLfloat FOV, GLfloat width, GLfloat height, GLfloat nearPlane, GLfloat farPlane, glm::vec3 camPosition)
 {
     position = camPosition;
@@ -29,16 +18,11 @@ Camera::Camera(GLfloat FOV, GLfloat width, GLfloat height, GLfloat nearPlane, GL
     projectionMatrix = glm::perspective(glm::radians(FOV), width / height, nearPlane, farPlane);
 //    projectionMatrix = glm::ortho(0.0f, width, 0.0f, height, nearPlane, farPlane);
 }
-glm::mat4 Camera::model(glm::vec3 translation, glm::vec3 rotation, glm::vec3 scale)
+mth::Matrix4 Camera::model(const mth::Vector3& translation, const mth::Quatern& rotation, const mth::Vector3& scale)
 {
-    glm::mat4 modelMatrix = glm::mat4(1.0f);
-    glm::mat4 rotationMatrix = glm::mat4(glm::quat(rotation));
-    modelMatrix = glm::translate(modelMatrix, translation);
-    
-    modelMatrix = modelMatrix * rotationMatrix * glm::scale(glm::mat4(1.0f), scale);
-    
-    return modelMatrix;
+    return (mth::translate(mth::Matrix4(1.0f), translation) *  mth::RotationM4(rotation) * mth::scale(mth::Matrix4(1.0f), scale));
 }
+
 glm::mat4 Camera::getView()
 {
     //    View Matrix - > World to View Space

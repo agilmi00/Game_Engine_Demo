@@ -35,6 +35,7 @@ void FileManager::serialize(const std::string& path)
         {
             to_json(j["GameObjects"][object]["Components"]["TransformComponent"]["Translation"], _ECSManager->getComponent<TransformComponent>(gameObject).Translation);
             to_json(j["GameObjects"][object]["Components"]["TransformComponent"]["Rotation"], _ECSManager->getComponent<TransformComponent>(gameObject).Rotation);
+            to_json(j["GameObjects"][object]["Components"]["TransformComponent"]["RotEuler"], _ECSManager->getComponent<TransformComponent>(gameObject).RotEuler);
             to_json(j["GameObjects"][object]["Components"]["TransformComponent"]["Scale"], _ECSManager->getComponent<TransformComponent>(gameObject).Scale);
         }
         if (info.test(2)) // Model
@@ -107,6 +108,7 @@ bool FileManager::deserialize(const std::string &path)
                         auto& transform = _ECSManager->getComponent<TransformComponent>(gameObject);
                         from_json(jPath["TransformComponent"]["Translation"],transform.Translation);
                         from_json(jPath["TransformComponent"]["Rotation"],transform.Rotation);
+//                        from_json(jPath["TransformComponent"]["RotEuler"],transform.RotEuler);
                         from_json(jPath["TransformComponent"]["Scale"],transform.Scale);
                     }
                     if (!jPath["ModelPath"].empty())
@@ -164,3 +166,28 @@ namespace glm
         j = {{"x", vec.x}, {"y", vec.y}, {"z", vec.z}};
     }
 }
+namespace mth
+{
+    void from_json(const json& j, Quatern& quat)
+    {
+        j.at("x").get_to(quat.x);
+        j.at("y").get_to(quat.y);
+        j.at("z").get_to(quat.z);
+        j.at("w").get_to(quat.w);
+    }
+    void to_json(json& j, Quatern& quat)
+    {
+        j = {{"x", quat.x}, {"y", quat.y}, {"z", quat.z}, {"w", quat.w}};
+    }
+    void from_json(const json& j, Vector3& vec)
+    {
+        j.at("x").get_to(vec.x);
+        j.at("y").get_to(vec.y);
+        j.at("z").get_to(vec.z);
+    }
+    void to_json(json& j, Vector3& vec)
+    {
+        j = {{"x", vec.x}, {"y", vec.y}, {"z", vec.z}};
+    }
+}
+

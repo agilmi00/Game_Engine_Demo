@@ -13,7 +13,7 @@
 
 struct BaseLight
 {
-    glm::vec3 lightColor = { 1.0f, 0.0f, 0.0f };
+    mth::Vector3 lightColor = { 1.0f, 0.0f, 0.0f };
     float diffuseIntensity  = 0.2f;
 };
 

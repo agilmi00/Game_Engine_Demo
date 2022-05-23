@@ -23,15 +23,15 @@ public:
     {
         for (auto& gameObject : gameObjects)
         {
-            trans = &_ECSManager->getComponent<TransformComponent>(gameObject).Translation;
-            auto& Projectile = _ECSManager->getComponent<ProjectileComponent>(gameObject);
-            if (glm::distance(Projectile.shootPosition, *trans) > 25) {
+            trans = _ECSManager->getComponent<TransformComponent>(gameObject).Translation;
+            auto Projectile = _ECSManager->getComponent<ProjectileComponent>(gameObject);
+            if (mth::Distance(Projectile.shootPosition, trans) > 25) {
                 
                 gameObjectToRemove.push(gameObject);
 //                _ECSManager->getComponent<TransformComponent>(gameObject).Translation
             }
             else{
-                *trans += Projectile.direction * 1.2f;
+                trans = trans + Projectile.direction * 1.2f;
             }
 //            _ECSManager->getComponent<TransformComponent>(gameObject).Translation += Projectile.direction * 1.2f;
         }
@@ -44,7 +44,7 @@ public:
 private:
     Camera* _camera;
     ECSManager* _ECSManager;
-    glm::vec3* trans;
+    mth::Vector3 trans;
     std::queue<GameObject> gameObjectToRemove;
 };
 
